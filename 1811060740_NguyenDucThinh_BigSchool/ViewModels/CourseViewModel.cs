@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _1811060740_NguyenDucThinh_BigSchool.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,9 +11,10 @@ namespace _1811060740_NguyenDucThinh_BigSchool.ViewModels
     {
         [Required]
         public string Place { get; set; }
-        [Required]
         [FutureDate]
+        [Required]
         public string Date { get; set; }
+        [ValidTime]
         [Required]
         public string Time { get; set; }
         [Required]
