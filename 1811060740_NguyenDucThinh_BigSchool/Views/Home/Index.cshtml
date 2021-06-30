@@ -2,8 +2,10 @@
 @{
     ViewBag.Title = "Home Page";
 }
+<link rel="stylesheet" href="~/Content/Site.css">
+
 <div class="row">
-    <ul>
+    <ul class="course">
         @foreach (var course in Model)
         {
             <li>
@@ -27,4 +29,5 @@
         }
     </ul>
 </div>
+
 
