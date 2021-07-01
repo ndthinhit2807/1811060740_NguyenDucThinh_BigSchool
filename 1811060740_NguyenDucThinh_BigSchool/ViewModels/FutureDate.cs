@@ -12,7 +12,7 @@ namespace _1811060740_NguyenDucThinh_BigSchool.ViewModels
             var isValid = DateTime.TryParseExact(Convert.ToString(value),
                 "dd/MM/yyyy",
                 CultureInfo.CurrentCulture,
-                DateTimeStyles.AssumeLocal,
+                DateTimeStyles.None,
                 out dateTime);
 
             return (isValid && dateTime > DateTime.Now);
