@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using _1811060740_NguyenDucThinh_BigSchool.DTos;
 using _1811060740_NguyenDucThinh_BigSchool.Models;
 using Microsoft.AspNet.Identity;
 
@@ -28,7 +29,7 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Controllers
             var attendance = new Attendance
             {
                 CourseId = courseId,
-                AttendeeId = User.Identity.GetUserId()
+                AttendeeId = userId
 
 
             };
@@ -41,28 +42,28 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Controllers
         }
 
 
-        // [HttpPost]
-        // public IHttpActionResult Attend(AttendanceDTO attendanceDTO)
-        // {
-        //     var userId = User.Identity.GetUserId();
-        //     if (_dbContext.Attendances.Any(a => a.AttendeeId == userId && a.CourseId == attendanceDTO.courseId))
-        //     {
-        //         return BadRequest("The Attendance already exits");
-        //     }
-        //     var attendance = new Attendance
-        //     {
-        //         CourseId = attendanceDTO.courseId,
-        //         AttendeeId = userId
-        //
-        //
-        //     };
-        //
-        //     _dbContext.Attendances.Add(attendance);
-        //     _dbContext.SaveChanges();
-        //
-        //     return Ok();
-        //
-        // }
+        [HttpPost]
+        public IHttpActionResult Attend(AttendanceDto attendanceDTO)
+        {
+            var userId = User.Identity.GetUserId();
+            if (_dbContext.Attendances.Any(a => a.AttendeeId == userId && a.CourseId == attendanceDTO.CourseId))
+            {
+                return BadRequest("The Attendance already exits");
+            }
+            var attendance = new Attendance
+            {
+                CourseId = attendanceDTO.CourseId,
+                AttendeeId = userId
+
+
+            };
+
+            _dbContext.Attendances.Add(attendance);
+            _dbContext.SaveChanges();
+
+            return Ok();
+
+        }
 
     }
 }

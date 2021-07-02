@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using _1811060740_NguyenDucThinh_BigSchool.Models;
+using _1811060740_NguyenDucThinh_BigSchool.ViewModels;
 
 namespace _1811060740_NguyenDucThinh_BigSchool.Controllers
 {
@@ -23,21 +24,13 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Controllers
                 .Include(c => c.Lecturer)
                 .Include(c => c.Category)
                 .Where(c => c.DateTime > DateTime.Now);
-            return View(upcommingCourses);
-        }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            var viewModel = new CourseViewModel
+            {
+                UpcommingCourses = upcommingCourses,
+                ShowAction = User.Identity.IsAuthenticated
+            };
+            return View(viewModel);
         }
     }
 }

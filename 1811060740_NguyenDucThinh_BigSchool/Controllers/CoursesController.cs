@@ -2,6 +2,7 @@
 using _1811060740_NguyenDucThinh_BigSchool.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -49,6 +50,31 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Controllers
             _dbContext.SaveChanges();
 
             return RedirectToAction("Index", "Home");
+
+        }
+
+        [Authorize]
+        public ActionResult Attending()
+        {
+            var userId = User.Identity.GetUserId();
+
+
+            var courses = _dbContext.Attendances
+                .Where(a => a.AttendeeId == userId)
+                .Select(a => a.Course)
+                .Include(l => l.Lecturer)
+                .Include(c => c.Category)
+                .ToList();
+
+            var viewModel = new CourseViewModel()
+            {
+                UpcommingCourses = courses,
+                ShowAction = User.Identity.IsAuthenticated
+            };
+
+            return View(viewModel);
+
+
 
         }
     }

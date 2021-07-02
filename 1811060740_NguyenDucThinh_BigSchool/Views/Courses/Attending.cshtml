@@ -1,9 +1,11 @@
-﻿@model _1811060740_NguyenDucThinh_BigSchool.ViewModels.CourseViewModel
+@model _1811060740_NguyenDucThinh_BigSchool.ViewModels.CourseViewModel
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Attending";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link rel="stylesheet" href="~/Content/Site.css">
 
+<h2>Attending</h2>
 <div class="row">
     <ul class="course">
         @foreach (var course in Model.UpcommingCourses)
