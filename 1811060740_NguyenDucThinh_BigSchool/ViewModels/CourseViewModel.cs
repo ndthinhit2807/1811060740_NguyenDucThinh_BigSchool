@@ -9,6 +9,8 @@ namespace _1811060740_NguyenDucThinh_BigSchool.ViewModels
 {
     public class CourseViewModel
     {
+        public IEnumerable<Attendance> Attendances { get; set; }
+        public IEnumerable<Following> Followings { get; set; }
         public IEnumerable<Course> UpcommingCourses { get; set; }
         public bool ShowAction { get; set; }
 
