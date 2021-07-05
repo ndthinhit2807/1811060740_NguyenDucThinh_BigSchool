@@ -1,3 +1,4 @@
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
 using _1811060740_NguyenDucThinh_BigSchool.DTos;
@@ -36,6 +37,21 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Controllers
 
             return Ok();
 
+        }
+
+        [HttpDelete]
+        public IHttpActionResult UnFollow(string followeeId,string followerId)
+        {
+            var unfollow =( from a in _dbContext.Followings
+                where a.FolloweeId == followeeId && a.FollowerId == followerId
+                select a).SingleOrDefault();
+
+
+
+
+            _dbContext.Followings.Remove(unfollow);
+            _dbContext.SaveChanges();
+            return Ok();
         }
 
     }

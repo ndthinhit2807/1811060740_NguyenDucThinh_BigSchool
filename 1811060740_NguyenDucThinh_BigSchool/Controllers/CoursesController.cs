@@ -13,7 +13,7 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Controllers
     public class CoursesController : Controller
     {
         private readonly ApplicationDbContext _dbContext;
-        
+
         public CoursesController()
         {
             _dbContext = new ApplicationDbContext();
@@ -76,6 +76,19 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Controllers
 
 
 
+        }
+
+        [Authorize]
+        public ActionResult Mine()
+        {
+            var userId = User.Identity.GetUserId();
+            var courses = _dbContext.Courses
+                .Where(c => c.LecturerId == userId && c.DateTime > DateTime.Now)
+                .Include(l => l.Lecturer)
+                .Include(c => c.Category)
+                .ToList();
+
+            return View(courses);
         }
     }
 }
