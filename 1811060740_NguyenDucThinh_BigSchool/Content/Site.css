@@ -98,3 +98,12 @@ element.style {
     vertical-align: middle;
 }
 
+.course > li .action{
+    display: none;
+    left: 100px;
+    position: absolute;
+}
+
+.course > li:hover .action{
+    display: block;
+}
