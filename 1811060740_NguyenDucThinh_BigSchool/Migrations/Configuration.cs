@@ -5,7 +5,8 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<_1811060740_NguyenDucThinh_BigSchool.Models.ApplicationDbContext>
+    internal sealed class
+        Configuration : DbMigrationsConfiguration<_1811060740_NguyenDucThinh_BigSchool.Models.ApplicationDbContext>
     {
         public Configuration()
         {

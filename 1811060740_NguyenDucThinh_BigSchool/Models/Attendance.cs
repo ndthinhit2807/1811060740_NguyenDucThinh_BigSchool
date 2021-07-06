@@ -7,15 +7,11 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Models
     {
         public Course Course { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
-        public int CourseId { get; set; }
+        [Key] [Column(Order = 1)] public int CourseId { get; set; }
 
 
         public ApplicationUser Attendee { get; set; }
 
-        [Key]
-        [Column(Order = 2)]
-        public string AttendeeId { get; set; }
+        [Key] [Column(Order = 2)] public string AttendeeId { get; set; }
     }
 }

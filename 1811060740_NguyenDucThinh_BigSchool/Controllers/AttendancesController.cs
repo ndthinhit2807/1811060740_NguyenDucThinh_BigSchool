@@ -11,7 +11,8 @@ using Microsoft.AspNet.Identity;
 namespace _1811060740_NguyenDucThinh_BigSchool.Controllers
 {
     public class AttendancesController : ApiController
-    {private ApplicationDbContext _dbContext;
+    {
+        private ApplicationDbContext _dbContext;
 
         public AttendancesController()
         {
@@ -25,7 +26,7 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Controllers
                 return BadRequest("The Attendance already exists!");
             var attendance = new Attendance
             {
-                CourseId= attendanceDto.CourseId,
+                CourseId = attendanceDto.CourseId,
                 AttendeeId = User.Identity.GetUserId()
             };
 
@@ -33,6 +34,5 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Controllers
             _dbContext.SaveChanges();
             return Ok();
         }
-
     }
 }

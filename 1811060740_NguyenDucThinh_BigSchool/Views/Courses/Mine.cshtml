@@ -28,13 +28,14 @@
                 </span>
             </div>
             <div class="action">
-                <a href="@Url.Action("Edit","Courses",new {id = course.Id})">Edit</a>
+                <a href="@Url.Action("Edit", "Courses", new {id = course.Id})">Edit</a>
                 |
                 <a href="#" class="js-cancel-course" data-course-id="@course.Id">Cancel</a>
             </div>
         </li>
     }
 </ul>
+
 @section scripts{
     <script>
         $(function () {
@@ -56,4 +57,4 @@
             });
         })
     </script>
-    }
+}

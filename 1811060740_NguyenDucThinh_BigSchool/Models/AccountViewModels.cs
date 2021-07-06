@@ -5,9 +5,7 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Models
 {
     public class ExternalLoginConfirmationViewModel
     {
-        [Required]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        [Required] [Display(Name = "Email")] public string Email { get; set; }
     }
 
     public class ExternalLoginListViewModel
@@ -25,12 +23,9 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Models
 
     public class VerifyCodeViewModel
     {
-        [Required]
-        public string Provider { get; set; }
+        [Required] public string Provider { get; set; }
 
-        [Required]
-        [Display(Name = "Code")]
-        public string Code { get; set; }
+        [Required] [Display(Name = "Code")] public string Code { get; set; }
         public string ReturnUrl { get; set; }
 
         [Display(Name = "Remember this browser?")]
@@ -41,9 +36,7 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Models
 
     public class ForgotViewModel
     {
-        [Required]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        [Required] [Display(Name = "Email")] public string Email { get; set; }
     }
 
     public class LoginViewModel
@@ -58,8 +51,7 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Models
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
-        public bool RememberMe { get; set; }
+        [Display(Name = "Remember me?")] public bool RememberMe { get; set; }
     }
 
     public class RegisterViewModel
@@ -80,9 +72,7 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-        [Required]
-        [StringLength(255)]
-        public string Name { get; set; }
+        [Required] [StringLength(255)] public string Name { get; set; }
     }
 
     public class ResetPasswordViewModel

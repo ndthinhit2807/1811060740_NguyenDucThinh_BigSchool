@@ -16,16 +16,10 @@ namespace _1811060740_NguyenDucThinh_BigSchool.ViewModels
 
         public int Id { get; set; }
 
-        [Required]
-        public string Place { get; set; }
-        [FutureDate]
-        [Required]
-        public string Date { get; set; }
-        [ValidTime]
-        [Required]
-        public string Time { get; set; }
-        [Required]
-        public byte Category { get; set; }
+        [Required] public string Place { get; set; }
+        [FutureDate] [Required] public string Date { get; set; }
+        [ValidTime] [Required] public string Time { get; set; }
+        [Required] public byte Category { get; set; }
 
         public IEnumerable<Category> Categories { get; set; }
 
@@ -40,6 +34,5 @@ namespace _1811060740_NguyenDucThinh_BigSchool.ViewModels
         {
             get { return (Id != 0) ? "Update" : "Create"; }
         }
-
     }
 }

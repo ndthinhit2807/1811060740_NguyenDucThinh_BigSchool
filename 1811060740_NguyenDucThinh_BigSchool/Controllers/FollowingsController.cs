@@ -24,35 +24,30 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Controllers
             {
                 return BadRequest("The Attendance already exits");
             }
+
             var following = new Following
             {
                 FollowerId = userId,
                 FolloweeId = followingDTO.FolloweeId
-
-
             };
 
             _dbContext.Followings.Add(following);
             _dbContext.SaveChanges();
 
             return Ok();
-
         }
 
         [HttpDelete]
-        public IHttpActionResult UnFollow(string followeeId,string followerId)
+        public IHttpActionResult UnFollow(string followeeId, string followerId)
         {
-            var unfollow =( from a in _dbContext.Followings
+            var unfollow = (from a in _dbContext.Followings
                 where a.FolloweeId == followeeId && a.FollowerId == followerId
                 select a).SingleOrDefault();
-
-
 
 
             _dbContext.Followings.Remove(unfollow);
             _dbContext.SaveChanges();
             return Ok();
         }
-
     }
 }

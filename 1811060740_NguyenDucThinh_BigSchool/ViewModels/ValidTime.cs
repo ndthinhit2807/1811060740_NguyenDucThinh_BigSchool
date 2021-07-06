@@ -16,7 +16,6 @@ namespace _1811060740_NguyenDucThinh_BigSchool.ViewModels
                 out dateTime);
 
             return isValid;
-
         }
     }
 }

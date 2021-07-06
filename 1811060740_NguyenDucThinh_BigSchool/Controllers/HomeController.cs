@@ -26,11 +26,10 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Controllers
                 .Include(c => c.Category)
                 .Where(c => c.DateTime > DateTime.Now);
 
-            var userId =  User.Identity.GetUserId();
+            var userId = User.Identity.GetUserId();
 
             var viewModel = new CourseViewModel
             {
-
                 UpcommingCourses = upcommingCourses,
                 ShowAction = User.Identity.IsAuthenticated,
                 Followings = _dbContext.Followings.Where(f => userId != null && f.FolloweeId == userId).ToList(),
