@@ -131,5 +131,22 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        public ActionResult Following()
+        {
+            var userId = User.Identity.GetUserId();
+            var followings = _dbContext.Followings
+                .Where(a => a.FolloweeId == userId)
+                .Select(a => a.Follower)
+                .ToList();
+
+            var viewModel = new FollowingViewModel
+            {
+                Followings = followings,
+                ShowAction = User.Identity.IsAuthenticated
+            };
+
+            return View(viewModel);
+        }
     }
 }
