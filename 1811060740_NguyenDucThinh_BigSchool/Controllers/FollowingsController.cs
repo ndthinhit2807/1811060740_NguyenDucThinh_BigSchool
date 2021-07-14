@@ -34,6 +34,8 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Controllers
             _dbContext.Followings.Add(following);
             _dbContext.SaveChanges();
 
+
+
             return Ok();
         }
 
