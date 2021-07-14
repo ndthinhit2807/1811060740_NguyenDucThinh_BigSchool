@@ -137,8 +137,8 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Controllers
         {
             var userId = User.Identity.GetUserId();
             var followings = _dbContext.Followings
-                .Where(a => a.FolloweeId == userId)
-                .Select(a => a.Follower)
+                .Where(a => a.FollowerId == userId)
+                .Select(a => a.Followee)
                 .ToList();
 
             var viewModel = new FollowingViewModel

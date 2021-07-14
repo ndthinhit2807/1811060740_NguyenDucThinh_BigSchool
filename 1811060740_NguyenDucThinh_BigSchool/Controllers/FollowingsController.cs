@@ -16,11 +16,13 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Controllers
             _dbContext = new ApplicationDbContext();
         }
 
+
+
         [HttpPost]
         public IHttpActionResult Follow(FollowingDto followingDTO)
         {
             var userId = User.Identity.GetUserId();
-            if (_dbContext.Followings.Any(f => f.FolloweeId == userId && f.FolloweeId == followingDTO.FolloweeId))
+            if (_dbContext.Followings.Any(f => f.FollowerId == userId && f.FolloweeId == followingDTO.FolloweeId))
                 return BadRequest("Following already exists!");
 
             var following = new Following
@@ -34,17 +36,5 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Controllers
             return Ok();
         }
 
-        [HttpDelete]
-        public IHttpActionResult UnFollow(string followeeId,string followerId)
-        {
-            var follow = _dbContext.Followings
-                .Where(x => x.FolloweeId == followeeId && x.FollowerId == followerId)
-                .Include(x=>x.Followee)
-                .Include(x=>x.Follower).SingleOrDefault();
-
-            _dbContext.Followings.Remove(follow);
-            _dbContext.SaveChanges();
-            return Ok();
-        }
     }
 }
