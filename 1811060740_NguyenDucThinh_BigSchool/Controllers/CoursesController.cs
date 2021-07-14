@@ -14,6 +14,7 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Controllers
     {
         private readonly ApplicationDbContext _dbContext;
 
+
         public CoursesController()
         {
             _dbContext = new ApplicationDbContext();
