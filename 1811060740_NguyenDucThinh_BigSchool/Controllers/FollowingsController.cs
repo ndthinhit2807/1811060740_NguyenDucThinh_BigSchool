@@ -20,10 +20,8 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Controllers
         public IHttpActionResult Follow(FollowingDto followingDTO)
         {
             var userId = User.Identity.GetUserId();
-            if (_dbContext.Followings.Any(a => a.FollowerId == userId && a.FolloweeId == followingDTO.FolloweeId))
-            {
-                return BadRequest("The Attendance already exits");
-            }
+            if (_dbContext.Followings.Any(f => f.FolloweeId == userId && f.FolloweeId == followingDTO.FolloweeId))
+                return BadRequest("Following already exists!");
 
             var following = new Following
             {
@@ -33,21 +31,18 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Controllers
 
             _dbContext.Followings.Add(following);
             _dbContext.SaveChanges();
-
-
-
             return Ok();
         }
 
         [HttpDelete]
-        public IHttpActionResult UnFollow(string followeeId, string followerId)
+        public IHttpActionResult UnFollow(string followeeId,string followerId)
         {
-            var unfollow = (from a in _dbContext.Followings
-                where a.FolloweeId == followeeId && a.FollowerId == followerId
-                select a).SingleOrDefault();
+            var follow = _dbContext.Followings
+                .Where(x => x.FolloweeId == followeeId && x.FollowerId == followerId)
+                .Include(x=>x.Followee)
+                .Include(x=>x.Follower).SingleOrDefault();
 
-
-            _dbContext.Followings.Remove(unfollow);
+            _dbContext.Followings.Remove(follow);
             _dbContext.SaveChanges();
             return Ok();
         }

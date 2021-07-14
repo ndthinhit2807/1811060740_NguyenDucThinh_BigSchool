@@ -24,7 +24,7 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Controllers
             var upcommingCourses = _dbContext.Courses
                 .Include(c => c.Lecturer)
                 .Include(c => c.Category)
-                .Where(c => c.DateTime > DateTime.Now);
+                .Where(c => c.DateTime > DateTime.Now && c.IsCanceled == false);
 
             var userId = User.Identity.GetUserId();
 

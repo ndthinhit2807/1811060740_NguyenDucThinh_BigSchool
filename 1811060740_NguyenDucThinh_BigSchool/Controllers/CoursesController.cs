@@ -82,7 +82,7 @@ namespace _1811060740_NguyenDucThinh_BigSchool.Controllers
         {
             var userId = User.Identity.GetUserId();
             var courses = _dbContext.Courses
-                .Where(c => c.LecturerId == userId && c.DateTime > DateTime.Now)
+                .Where(c => c.LecturerId == userId && c.DateTime > DateTime.Now && c.IsCanceled == false)
                 .Include(l => l.Lecturer)
                 .Include(c => c.Category)
                 .ToList();

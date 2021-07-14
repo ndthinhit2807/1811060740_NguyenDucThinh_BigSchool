@@ -1,3 +1,4 @@
+@using Microsoft.AspNet.Identity
 @model _1811060740_NguyenDucThinh_BigSchool.ViewModels.CourseViewModel
 @{
     ViewBag.Title = "Attending";
@@ -20,19 +21,14 @@
                     </div>
                 </div>
                 <div class="details">
-                    <span class="lecturer">
-                        @course.Lecturer.Name
-                        @if (Model.ShowAction)
-                        {
-                            <button class="btn btn-default btn-sm js-toggle-follow" data-user-id="@course.LecturerId">Follow</button>
-                        }
-                    </span>
                     <span class="category">
                         @course.Category.Name
                     </span>
                     @if (Model.ShowAction)
                     {
-                        <button data-course-id="@course.Id" class="btn btn-default btn-sm js-toggle-attendance">Going?</button>
+
+                            <button data-course-id="@course.Id" class="btn btn-sm btn-info">Going</button>
+
                     }
                 </div>
             </li>

@@ -94,13 +94,12 @@ element.style {
 .course > li .details{
     position: absolute;
     top: 0;
-    left: 70px;
+    left: 50px;
     vertical-align: middle;
 }
 
 .course > li .action{
     display: none;
-    left: 100px;
     position: absolute;
 }
 

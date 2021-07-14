@@ -1,4 +1,5 @@
-﻿@model _1811060740_NguyenDucThinh_BigSchool.ViewModels.CourseViewModel
+﻿@using Microsoft.AspNet.Identity
+@model _1811060740_NguyenDucThinh_BigSchool.ViewModels.CourseViewModel
 @{
     ViewBag.Title = "Home Page";
 }
@@ -23,9 +24,9 @@
                             @course.Lecturer.Name
                             @if (Model.ShowAction)
                             {
-                                if (Model.Followings.Any(x => x.FolloweeId == course.Lecturer.Id))
+                                if (Model.Followings.Any(x=>x.FollowerId == @User.Identity.GetUserId()))
                                 {
-                                    <button data-user-id="@course.LecturerId" class="btn btn-default btn-sm js-toggle-follow">Following?</button>
+                                    <button data-user-id="@course.LecturerId" class="btn btn-default btn-sm js-toggle-follow">Following</button>
                                 }
                                 else
                                 {
@@ -40,13 +41,14 @@
                         </span>
                         @if (Model.ShowAction)
                         {
-                            if (Model.Attendances.Any(x => x.CourseId == course.Id))
+
+                            if (Model.Attendances.Any(x => x.CourseId == course.Id && x.AttendeeId == @User.Identity.GetUserId()))
                             {
-                                <button data-course-id="@course.Id" class="btn btn-default btn-sm js-toggle-attendance">Going?</button>
+                                <button data-course-id="@course.Id" class="btn btn-sm btn-info">Going</button>
                             }
                             else
                             {
-                                <button data-course-id="@course.Id" class="btn btn-sm btn-info">Going</button>
+                                <button data-course-id="@course.Id" class="btn btn-default btn-sm js-toggle-attendance">Going?</button>
                             }
                         }
                     </div>
@@ -55,33 +57,32 @@
         }
     </ul>
 
-    @section scripts{
-        <script>
-          $(function () {
-              $('.js-toggle-attendance').click(function (e) {
-                  var button = $(e.target);
-                  $.post("/api/attendances", { CourseId: button.attr("data-course-id") }).done(function () {
-                      button
-                          .removeClass("btn-default")
-                          .addClass("btn-info")
-                          .text("Going");
-                  }).fail(function () {
-                      alert("Something failed");
-                  });
-              });
+@section scripts{
+    <script>
+        $(function () {
+            $('.js-toggle-attendance').click(function (e) {
+                var button = $(e.target);
+                $.post("/api/attendances", { CourseId: button.attr("data-course-id") }).done(function () {
+                    button
+                        .removeClass("btn-default")
+                        .addClass("btn-info")
+                        .text("Going");
+                }).fail(function () {
+                    alert("Something failed");
+                });
+            });
 
 
-              $('.js-toggle-follow').click(function (e) {
-                  var button = $(e.target);
-                  $.post("/api/followings", { FolloweeId: button.attr("data-user-id") }).done(function () {
-                      button
-                          .text("Following");
-                  }).fail(function () {
-                      alert("Something failed");
-                  });
-              });
-          });
-      </script>
-    }
-
+            $('.js-toggle-follow').click(function (e) {
+                var button = $(e.target);
+                $.post("/api/followings", { FolloweeId: button.attr("data-user-id") }).done(function () {
+                    button
+                        .text("Following");
+                }).fail(function () {
+                    alert("Something failed");
+                });
+            });
+        });
+    </script>
+}
 </div>
