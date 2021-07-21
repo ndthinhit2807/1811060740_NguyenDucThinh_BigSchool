@@ -27,14 +27,17 @@
                             {
                                 if (Model.Followings.Any(x=>x.FollowerId == @User.Identity.GetUserId() && x.FolloweeId == course.Lecturer.Id))
                                 {
-                                    <button data-user-id="@course.LecturerId" class="btn btn-sm btn-info">Following</button>
+                                    <button class="btn btn-danger btn-sm js-toggle-follow" data-user-id="@course.LecturerId">Unfollow</button>
+
                                 }
+
                                 else
                                 {
-                                    <button data-user-id="@course.LecturerId" class="btn btn-default btn-sm js-toggle-follow">Follow?</button>
+                                    <button class="btn btn-default btn-sm js-toggle-follow" data-user-id="@course.LecturerId">Follow</button>
                                 }
                             }
                         </span>
+
                     </div>
                     <div>
                         <span class="category">
@@ -45,11 +48,11 @@
 
                             if (Model.Attendances.Any(x => x.CourseId == course.Id && x.AttendeeId == @User.Identity.GetUserId()))
                             {
-                                <button data-course-id="@course.Id" class="btn btn-sm btn-info">Going</button>
+                                <button class="btn btn-danger btn-sm js-toggle-attendance" data-course-id="@course.Id">DeleteGoing</button>
                             }
                             else
                             {
-                                <button data-course-id="@course.Id" class="btn btn-default btn-sm js-toggle-attendance">Going?</button>
+                                <button class="btn btn-default btn-sm js-toggle-attendance" data-course-id="@course.Id">Going?</button>
                             }
                         }
                     </div>
@@ -60,32 +63,67 @@
 
 @section scripts{
     <script>
-        $(function () {
-            $('.js-toggle-attendance').click(function (e) {
-                var button = $(e.target);
-                $.post("/api/attendances", { CourseId: button.attr("data-course-id") }).done(function () {
-                    button
-                        .removeClass("btn-default")
-                        .addClass("btn-info")
-                        .text("Going");
-                }).fail(function () {
-                    alert("Something failed");
-                });
-            });
+                $(document).ready(function () {
+                    $(".js-toggle-attendance").click(function (e) {
+                        var button = $(e.target);
+                        if (button.hasClass("btn-default")) {
+                            $.post("/api/attendances", { courseId: button.attr("data-course-id") })
+                                .done(function () {
+                                    button
+                                        .removeClass("btn-default")
+                                        .addClass("btn-danger")
+                                        .text("DeleteGoing");
+                                })
+                                .fail(function () {
+                                    alert("Something failed!");
+                                });
+                        } else {
+                            $.ajax({
+                                url: "/api/attendances/" + button.attr("data-course-id"),
+                                method: "DELETE"
+                            })
+                                .done(function () {
+                                    button
+                                        .removeClass("btn-danger")
+                                        .addClass("btn-default")
+                                        .text("Going?");
+                                })
+                                .fail(function () {
+                                    alert("Something failed");
+                                });
+                        }
+                    });
+                    $(".js-toggle-follow").click(function (e) {
+                        var button = $(e.target);
+                        if (button.hasClass("btn-default")) {
+                            $.post("/api/followings", { followeeId: button.attr("data-user-id") })
+                                .done(function () {
+                                    button
+                                        .removeClass("btn-default")
+                                        .addClass("btn-danger")
+                                        .text("Unfollow");
 
-
-            $('.js-toggle-follow').click(function (e) {
-                var button = $(e.target);
-                $.post("/api/followings", { FolloweeId: button.attr("data-user-id") }).done(function () {
-                    button
-                    .removeClass("btn-default")
-                                            .addClass("btn-info")
-                        .text("Following");
-                }).fail(function () {
-                    alert("Something failed");
+                                })
+                                .fail(function () {
+                                    alert("Something failed");
+                                });
+                        } else {
+                            $.ajax({
+                                url: "/api/Followings/" + button.attr("data-user-id"),
+                                method: "DELETE"
+                            })
+                                .done(function () {
+                                    button
+                                        .removeClass("btn-danger")
+                                        .addClass("btn-default")
+                                        .text("Follow");
+                                })
+                                .fail(function () {
+                                    alert("Something failed");
+                                });
+                        }
+                    });
                 });
-            });
-        });
-    </script>
+            </script>
 }
 </div>

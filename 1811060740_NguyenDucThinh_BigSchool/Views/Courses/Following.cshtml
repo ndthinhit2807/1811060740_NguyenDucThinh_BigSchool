@@ -6,8 +6,9 @@
 }
 
 <!DOCTYPE html>
+<h2>Following</h2>
 <div class="row">
-    <ul class="course">
+    <ul class="follow">
         @foreach (var follow in Model.Followings)
         {
             <li>
@@ -20,30 +21,3 @@
         }
     </ul>
 </div>
-
-@section scripts{
-    <script>
-        $('.js-unfollow').click(function () {
-            var link = $(this);
-            bootbox.confirm("Are you sure to cancel?", function () {
-                var followeeId = link.attr('data-followee-id');
-                var followerId = link.attr('data-follower-id');
-                //$.post('/api/Followings/UnFollow', { FollowerId: followerId, FolloweeId: followeeId }).done(function () {
-                //    link.remove();
-                //}).fail(function () { alert('something failed!') });
-
-                $.ajax({
-                    url: "/api/unfollow/" + followerId + "/" + followeeId,
-                    method: "DELETE"
-                }).done(function () {
-                    link.parents("li").fadeOut(function () {
-                        this.remove();
-                    });
-                }).fail(function () {
-                    alert("Something failed");
-                });
-
-            });
-        });
-    </script>
-}
