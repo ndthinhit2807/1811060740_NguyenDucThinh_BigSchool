@@ -26,7 +26,15 @@
                     </span>
                     @if (Model.ShowAction)
                     {
-                        <button data-course-id="@course.Id" class="btn btn-sm btn-info">Going</button>
+                        if (course.IsCanceled == false)
+                        {
+                            <button data-course-id="@course.Id" class="btn btn-sm btn-info">Going</button>
+                        }
+                        else
+                        {
+                            <button data-course-id="@course.Id" class="btn btn-sm btn-secondary">Canceled</button>
+                        }
+
                     }
                 </div>
             </li>
